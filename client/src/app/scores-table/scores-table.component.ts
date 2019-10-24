@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { isSyntheticPropertyOrListener } from '@angular/compiler/src/render3/util';
 
 @Component({
   selector: 'app-scores-table',
@@ -23,7 +24,12 @@ export class ScoresTableComponent implements OnInit {
       total: 0
     }
   ];
-
+  clearResults() {
+  for (let p=0; p<this.playersData.length; p++ ) {
+    this.playersData[p].scores = [0,0,0,0,0];
+   }
+   this.reCalcTotals();
+  }
   reCalcTotals() {
   for ( let p=0; p<this.playersData.length; p++) {
     this.playersData[p].total =0;
@@ -37,7 +43,7 @@ export class ScoresTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.reCalcTotals();
+    this.reCalcTotals()
   }
 
 }

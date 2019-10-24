@@ -1,16 +1,20 @@
 <table>
   <tr>
     <th> Player </th>
-    <th colspan="5"> Scores </th>
-    <th> Total </th>
+    <th colspan="5"> Scores
+      <button (click)="clearResults()">C</button> 
+    </th>
+    <th> Total 
+      <button (click)="reCalcTotals()">0</button>
+    </th>
   </tr>
   <tr *ngFor="let p of playersData">
-    <td>{{p.name}}</td>
-    <th>{{p.scores[0]}}1</th>
-    <th>{{p.scores[1]}}2</th>
-    <th>{{p.scores[2]}}3</th>
-    <th>{{p.scores[3]}}4</th>
-    <th>{{p.scores[4]}}5</th>
-    <td>{{p.total}}</td>
+    <td>{{ p.name }}</td>
+    <th>{{ p.scores[0] }} </th>
+    <th>{{ p.scores[1] }} </th>
+    <th>{{ p.scores[2] }} </th>
+    <th>{{ p.scores[3] }} </th>
+    <th>{{ p.scores[4] }} </th>
+    <td>{{ p.total }} </td>
   </tr>
 </table>

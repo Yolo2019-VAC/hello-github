@@ -93,7 +93,9 @@ export class MathGameComponent implements OnInit {
   }
   @HostListener('window:keydown.arrowdown')
   onDown() {
-    
+    for ( let c=0; c < this.SxS; c++) {
+      this.setCol( c ,this.mover( this.getCol( c ).reverse() ).reverse() );
+    }
   }
   @HostListener('window:keydown.arrowleft')
   onLeft() {

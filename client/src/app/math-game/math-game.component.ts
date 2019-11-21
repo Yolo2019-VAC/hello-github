@@ -11,48 +11,46 @@ export class MathGameComponent implements OnInit {
   SxS = 4;
   msg='none';
   board = [
-   [ 2, 2, 2, 0 ],
-   [ 0, 2, 0, 2 ],
-   [ 2, 0, 0, 0 ],
-   [ 2, 0, 0, 2 ]
+   [ 0, 0, 0, 0 ],
+   [ 0, 0, 0, 0 ],
+   [ 0, 0, 0, 0 ],
+   [ 0, 0, 0, 0 ]
   ];
 
   constructor() { }
 
   mover( a ) {
-    for (let c=0; c<this.SxS; c++) {
-      for (let r=this.SxS-1; r>0; r--) {
-        //step1
-        if ( a[ r ] ==0 ) {
-          let find_rNo_ne_0 = -1;
-          for ( let ri=r+1; ri<this.SxS; ri++ ){
-            if ( a [ ri ] > 0) {
-              find_rNo_ne_0 = ri;
-              break;
-            }
-          }
-         if (find_rNo_ne_0>0) {
-           a [ r ] = a[find_rNo_ne_0];
-           a [ find_rNo_ne_0 ] = 0;
-         }
-        }
-        //step2
-        let find_rNo_eq_0 = -1;
-        for ( let rj=r+1; rj<this.SxS; rj++) {
-          if ( a[rj] == a[r]) {
-            find_rNo_eq_0 = rj;
-          }
-          if ( a [rj] > 0 ) {
+    for (let r=0; r<this.SxS-1; r++) {
+      //step1
+      if ( a[ r ] == 0 ) {
+        let find_rNo_ne_0 = -1;
+        for ( let ri=r+1; ri<this.SxS; ri++ ){
+          if ( a [ ri ] > 0) {
+            find_rNo_ne_0 = ri;
             break;
           }
         }
-        if ( find_rNo_eq_0 > 0) { 
-          a[r] += a[ find_rNo_eq_0 ];
-          a[ find_rNo_eq_0 ] = 0;
+        if (find_rNo_ne_0>0) {
+          a [ r ] = a[find_rNo_ne_0];
+          a [ find_rNo_ne_0 ] = 0;
         }
       }
-      return a;
+      //step2
+      let find_rNo_eq_0 = -1;
+      for ( let rj=r+1; rj<this.SxS; rj++) {
+        if ( a[rj] == a[r]) {
+          find_rNo_eq_0 = rj;
+        }
+        if ( a [rj] > 0 ) {
+          break;
+        }
+      }
+      if ( find_rNo_eq_0 > 0) { 
+        a[r] += a[ find_rNo_eq_0 ];
+        a[ find_rNo_eq_0 ] = 0;
+      }
     }
+    return a;
   }
   getCol( cNo ) {
     let a =[];
@@ -74,9 +72,37 @@ export class MathGameComponent implements OnInit {
     this.board[ rNo ] = a;
   }
 
+  rnd() {
+   // if ( Math.random() <0.1 ) {
+    //  return 4;
+   // } else { 
+   //   return 2; }
+   return ( Math.random() < 0.1 ? 4 : 2);
+  }
+  
+  getZeros() {
+    let Z = [];
+    for ( let r = 0; r < this.SxS; r++) { //кожен рядок
+      for ( let c=0; c < this.SxS; c++){  //кожен елемент в рядку
+       if ( this.board[r][c] == 0) {
+         Z .push( [r,c] );
+       }
+      }
+    }
+    return Z;
+  }
+  
+  nextNumber() {
+ let Z =  this.getZeros();
+ if ( Z.length > 0 ) {
+ let i = Math.floor( Z.length * Math.random() );
+ this.board[ Z[i][0] ][ Z[i][1] ] = this.rnd();
+   }
+  }
+
   ngOnInit() {
-   // this.setRow( 3, [ 16,32,16,16] );
-   // this.setRow( 3, this.getRow( 1 ) );
+   this.nextNumber();
+   this.nextNumber();
   }
 
   @HostListener('window:keydown.arrowup')
@@ -84,24 +110,28 @@ export class MathGameComponent implements OnInit {
    for ( let c=0; c < this.SxS; c++ ) {
      this.setCol( c, this.mover( this.getCol( c ) ) );
    }
+   this.nextNumber();
   }
   @HostListener('window:keydown.arrowright')
   onRight() {
    for ( let r=0; r < this.SxS; r++ ) {
      this.setRow ( r, this.mover(this.getRow( r ).reverse() ).reverse() );
    }
+   this.nextNumber();
   }
   @HostListener('window:keydown.arrowdown')
   onDown() {
     for ( let c=0; c < this.SxS; c++) {
       this.setCol( c ,this.mover( this.getCol( c ).reverse() ).reverse() );
     }
+    this.nextNumber();
   }
   @HostListener('window:keydown.arrowleft')
   onLeft() {
    for (let r=0; r < this.SxS; r++) {
      this.setRow( r, this.mover( this.getRow ( r ) ) );
    }
+   this.nextNumber();
   }
 
 } 

@@ -1,0 +1,17 @@
+<table boarder="1">
+    <tr *ngFor="let r of boards.player">
+       <td *ngFor=" let c of r"> 
+         {{c}}
+       </td>      
+    </tr>
+</table>
+
+<hr>
+
+<table boarder="1">
+    <tr *ngFor="let r of boards.enemy"> 
+    <td *ngFor="let c of r"> 
+      {{c}}
+    </td>
+  </tr> 
+</table>

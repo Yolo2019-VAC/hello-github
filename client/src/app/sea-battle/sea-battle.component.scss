@@ -1,0 +1,33 @@
+table, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+table {
+ margin: 0 auto;
+}
+td {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    font-size: 9px;
+}
+
+.w {
+    background-color: silver;
+}
+
+.b {
+    background-color: blue;
+}
+
+.r {
+    background-color: red;
+}
+
+.g {
+    background-color: grey;
+}
+
+.lb {
+    background-color: lightblue;
+}

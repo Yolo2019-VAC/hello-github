@@ -1,17 +1,21 @@
 <table boarder="1">
     <tr *ngFor="let r of boards.player">
-       <td *ngFor=" let c of r"> 
-         {{c}}
+       <td *ngFor=" let c of r" 
+        [ngClass]="{ 'g': (c>0), 'lb': (c==0), 'r': (c<0&&c!=-100), 'b': (c==-100) }" >
        </td>      
     </tr>
 </table>
 
+<button (click)="enShot()">[0]</button>
 <hr>
 
-<table boarder="1">
-    <tr *ngFor="let r of boards.enemy"> 
-    <td *ngFor="let c of r"> 
-      {{c}}
+<table boarder="1" [ngClass]="enemy">
+    <tr *ngFor="let r of boards.enemy; index as i"> 
+    <td 
+     *ngFor = " let c of r; index as j"
+     [ngClass] = "{ 'w': c>=0, 'r': c<0&&c!=-100, 'b': c==-100 }"
+     (click) = "myShot( i, j )" >
+      &nbsp; 
     </td>
   </tr> 
 </table>

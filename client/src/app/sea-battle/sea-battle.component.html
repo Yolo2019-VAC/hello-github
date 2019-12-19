@@ -1,4 +1,4 @@
-<table boarder="1">
+<table>
     <tr *ngFor="let r of boards.player">
        <td *ngFor=" let c of r" 
         [ngClass]="{ 'g': (c>0), 'lb': (c==0), 'r': (c<0&&c!=-100), 'b': (c==-100) }" >
@@ -9,7 +9,7 @@
 <button (click)="enShot()">[0]</button>
 <hr>
 
-<table boarder="1" [ngClass]="enemy">
+<table [ngClass]="enemy">
     <tr *ngFor="let r of boards.enemy; index as i"> 
     <td 
      *ngFor = " let c of r; index as j"

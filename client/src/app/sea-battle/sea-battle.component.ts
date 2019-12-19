@@ -45,18 +45,36 @@ export class SeaBattleComponent implements OnInit {
     if ( this.boards.enemy[r][c] > 0 ) {
       this.boards.enemy[r][c] = - this.boards.enemy[r][c];
     }
-    console.log(this.boards.enemy[r][c]);
+    this.enShot();
   }
 
   enShot() {
-    let r = 1; //
-    let c = 1; //
-    if ( this.boards.player[r][c] == 0 ) {
+    let r = 0; //
+    let c = 0; //
+    let Z = this.getZeros();
+    if ( Z.length > 0 ) {
+      let i = Math.floor( Z.length * Math.random() );
+      r = Z[i][0]
+      c = Z[i][1];
+    }
+    if ( this.boards.player[r][c] == 0) {
       this.boards.player[r][c] = -100;
     }
     if ( this.boards.player[r][c] > 0 ) {
       this.boards.player[r][c] = - this.boards.player[r][c];
     }
+  }
+
+  getZeros() {
+    let Z = [];
+    for ( let r=0; r < this.S; r++ ) {
+     for ( let c=0; c < this.S; c++ ) {
+        if ( this.boards.player[r][c] >= 0 ) {
+          Z.push( [r,c] );
+        }
+      }
+    }
+    return Z;
   }
 
   ngOnInit() {
